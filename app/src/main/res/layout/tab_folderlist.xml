@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@drawable/folderlisting_divider"
+        android:dividerHeight="0.25dp"
+        android:headerDividersEnabled="false"
+        android:fastScrollEnabled="true"
+        android:childDivider="@drawable/video_listing_dividers"
+        android:id="@+id/expandablelistview">
+    </ExpandableListView>
+</RelativeLayout>

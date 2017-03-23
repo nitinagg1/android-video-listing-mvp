@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/long_press_menu_share"
+        android:title="@string/long_press_share"
+        />
+    <item
+        android:id="@+id/long_press_menu_delete"
+        android:title="@string/long_press_delete"
+        />
+    <item
+        android:id="@+id/long_press_menu_rename"
+        android:title="@string/long_press_rename"
+        />
+</menu>

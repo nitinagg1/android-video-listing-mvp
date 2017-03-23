@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="106dp">
+    <ImageView
+        android:id="@+id/VideoThumbnailNew"
+        android:layout_marginLeft="16dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:scaleType="fitXY"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp" />
+    <!--&lt;!&ndash; video duration &ndash;&gt;-->
+    <TextView
+        android:id="@+id/VideoDurationNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/VideoThumbnailNew"
+        android:textSize="12dp"
+        android:layout_marginRight="16dp" />
+
+    <!-- Video Title -->
+    <TextView
+        android:id="@+id/VideoTitleNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="asdhjkahdkahdjkahdkahdjkahdskjhakjdhaskjd"
+        android:maxLines="2"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        android:layout_marginBottom="4dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@id/VideoDurationNew"
+        android:layout_toRightOf="@+id/VideoThumbnailNew"/>
+
+
+
+    <!--&lt;!&ndash; Size &ndash;&gt;-->
+    <TextView
+        android:id="@+id/VideoSizeNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/VideoThumbnailNew"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="12dp"
+        android:textSize="12sp" />
+    <!--&lt;!&ndash; resolution &ndash;&gt;-->
+    <TextView
+        android:id="@+id/VideoResolutionNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="12dp"
+        android:textSize="12sp"
+        android:layout_marginRight="16dp" />
+</RelativeLayout>

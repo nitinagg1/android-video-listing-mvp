@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">videolistingmvp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="folder_tab_name">Folders</string>
+    <string name="list_tab_name">List</string>
+    <string name="saved_tab_name">Saved</string>
+    <string name="recent_tab_name">Recent</string>
+
+
+    <string name="long_press_share">Share</string>
+    <string name="long_press_delete">Delete</string>
+    <string name="long_press_remove">Remove</string>
+    <string name="long_press_rename">Rename</string>
+    <string name="share_text">Share Video</string>
+    <string name="rename_video">Rename Video</string>
+    <string name="same_title_exists">Same File Exists</string>
+</resources>

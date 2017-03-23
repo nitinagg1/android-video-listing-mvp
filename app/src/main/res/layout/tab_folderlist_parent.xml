@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    >
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/folderImage"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="32dp"
+        android:src="@drawable/folder"/>
+    <TextView
+        android:id="@+id/parent_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:maxLines="1"
+        android:maxLength="30"
+        android:layout_toRightOf="@id/folderImage"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_centerVertical="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="26dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:id="@+id/videoCount"
+        android:textStyle="bold"
+        android:textColor="@color/blacktransparent"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/folder_path"
+        android:visibility="invisible"
+        android:maxLines="1"
+        android:layout_toRightOf="@id/folderImage"
+        android:textSize="10dp"
+        android:textColor="@color/ColorPrimaryDark"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

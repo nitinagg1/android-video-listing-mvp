@@ -1,0 +1,43 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <!-- <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" /> -->
+    <item android:id="@+id/action_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Search"
+          android:iconifiedByDefault="false"
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/sort_name_asc"
+            android:title="Sort Name Asc"
+            app:showAsAction="never"/>
+        <item android:id="@+id/sort_name_dsc"
+            android:title="Sort Name Dsc"
+            app:showAsAction="never"/>
+        <item android:id="@+id/sort_date_asc"
+            android:title="Sort Date Asc"
+            app:showAsAction="never"/>
+        <item android:id="@+id/sort_date_dsc"
+            android:title="Sort Date Dsc"
+            app:showAsAction="never"/>
+        <item android:id="@+id/sort_size_asc"
+              android:title="Sort Size Asc"
+              app:showAsAction="never"/>
+        <item android:id="@+id/sort_size_dsc"
+              android:title="Sort Size Dsc"
+              app:showAsAction="never"/>
+    </group>
+
+    <item android:id="@+id/help_menu"
+        android:title="HELP"
+        app:showAsAction="never"/>
+    <item android:id="@+id/share_menu"
+        android:title="Share"
+        app:showAsAction="never"/>
+    <item android:id="@+id/buy_pro"
+        android:title="Buy Pro Version"
+        app:showAsAction="never"/>
+</menu>
