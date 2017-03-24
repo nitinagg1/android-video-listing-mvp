@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.model.VideoListInfo;
 import com.mn2square.videolistingmvp.utils.Converters;
+import com.mn2square.videolistingmvp.utils.thumbnailutils.CustomImageView;
 import com.mn2square.videolistingmvp.utils.thumbnailutils.ThumbnailCreateor;
 import com.mn2square.videolistingmvp.utils.thumbnailutils.BitmapCache;
 
@@ -55,7 +56,7 @@ public class VideoListAdapter extends ArrayAdapter<String> {
             viewHolder.title = (TextView) convertView.findViewById(R.id.VideoTitleNew);
             viewHolder.resolution = (TextView) convertView.findViewById(R.id.VideoResolutionNew);
             viewHolder.size = (TextView) convertView.findViewById(R.id.VideoSizeNew);
-            viewHolder.thumbnail =(ImageView) convertView.findViewById(R.id.VideoThumbnailNew);
+            viewHolder.thumbnail =(CustomImageView) convertView.findViewById(R.id.VideoThumbnailNew);
             viewHolder.duration = (TextView) convertView.findViewById(R.id.VideoDurationNew);
 
             convertView.setTag(viewHolder);
@@ -112,7 +113,7 @@ public class VideoListAdapter extends ArrayAdapter<String> {
 
 
     private class ViewHolder {
-        ImageView thumbnail;
+        CustomImageView thumbnail;
         TextView title;
         TextView resolution;
         TextView size;

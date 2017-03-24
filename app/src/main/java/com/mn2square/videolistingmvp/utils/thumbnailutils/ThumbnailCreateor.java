@@ -49,8 +49,8 @@ public class ThumbnailCreateor {
             if (found != null)
                 return found;
             Bitmap bitmap = MediaStore.Video.Thumbnails.getThumbnail(cr, this.data, MediaStore.Video.Thumbnails.MINI_KIND,null);
-            bitmap = BitmapUtil.scaleDownBitmap(VideoListingMvpApplication.getAppContext(),bitmap,120);
-            return BitmapUtil.getRoundedCornerBitmap(bitmap,10);
+            bitmap = BitmapUtil.scaleDownBitmap(VideoListingMvpApplication.getAppContext(),bitmap,105);
+            return bitmap;
         }
 
         @Override
