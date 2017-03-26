@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity;
@@ -49,6 +50,15 @@ public class ListFragmentImpl extends Fragment implements ListFragment{
         ((VideoListingActivity)getActivity()).registerListener(this);
         ((VideoListingActivity)getActivity()).fetchVideoList();
         registerForContextMenu(mListFragmentViewImpl.getListView());
+
+        mListFragmentViewImpl.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedVideo = mVideoListInfo.getVideosList().get(i);
+                Toast.makeText(getActivity(), selectedVideo + "clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 

@@ -31,13 +31,4 @@
               app:showAsAction="never"/>
     </group>
 
-    <item android:id="@+id/help_menu"
-        android:title="HELP"
-        app:showAsAction="never"/>
-    <item android:id="@+id/share_menu"
-        android:title="Share"
-        app:showAsAction="never"/>
-    <item android:id="@+id/buy_pro"
-        android:title="Buy Pro Version"
-        app:showAsAction="never"/>
 </menu>

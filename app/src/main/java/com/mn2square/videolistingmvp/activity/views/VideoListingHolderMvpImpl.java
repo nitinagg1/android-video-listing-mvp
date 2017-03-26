@@ -2,7 +2,10 @@ package com.mn2square.videolistingmvp.activity.views;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -16,7 +19,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.viewpageradapter.ViewPagerAdapter;
@@ -26,21 +31,25 @@ import com.mn2square.videolistingmvp.activity.viewpageradapter.ViewPagerAdapter;
  */
 
 public class VideoListingHolderMvpImpl implements ViewMvp, ViewMvpSearch, SearchView.OnClickListener,
-        SearchView.OnCloseListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener
+        SearchView.OnCloseListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener,
+        TabLayout.OnTabSelectedListener
 {
 
     private View mRootView;
     private SearchView mSearchView;
     private SearchVideo mSearchListener;
-    private ListView mListView;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    private AppBarLayout mAppBarLayout;
+    private Context mContext;
+    Window mWindow;
 
     private static String TAG = "videolistmvp";
 
     public VideoListingHolderMvpImpl(Context context, ViewGroup container)
     {
 
+        mContext = context;
         AppCompatActivity appCompatActivity = (AppCompatActivity)context;
         mRootView = LayoutInflater.from(context).inflate(R.layout.activity_main, container);
         mViewPager = (ViewPager)mRootView.findViewById(R.id.viewpager);
@@ -54,10 +63,17 @@ public class VideoListingHolderMvpImpl implements ViewMvp, ViewMvpSearch, Search
         ViewPagerAdapter viewPagerAdapter =
                 new ViewPagerAdapter(appCompatActivity.getSupportFragmentManager(), titles);
         mViewPager.setAdapter(viewPagerAdapter);
+        mViewPager.setCurrentItem(1);
+
+        mWindow = ((AppCompatActivity) context).getWindow();
 
         mTabLayout = (TabLayout)mRootView.findViewById(R.id.tablayout);
 
+        mAppBarLayout = (AppBarLayout)mRootView.findViewById(R.id.appBarLayout);
+
         mTabLayout.setupWithViewPager(mViewPager);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            mTabLayout.addOnTabSelectedListener(this);
 
         Toolbar toolbar = (Toolbar) mRootView.findViewById(R.id.tool_bar);
         appCompatActivity.setSupportActionBar(toolbar);
@@ -69,9 +85,17 @@ public class VideoListingHolderMvpImpl implements ViewMvp, ViewMvpSearch, Search
 
         NavigationView navigationView = (NavigationView) mRootView.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FloatingActionButton fabRecordCameraVideo = (FloatingActionButton)mRootView.findViewById(R.id.fab_video_record);
+        fabRecordCameraVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,"fab clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
-    
     @Override
     public View getRootView() {
         return mRootView;
@@ -107,7 +131,6 @@ public class VideoListingHolderMvpImpl implements ViewMvp, ViewMvpSearch, Search
 
     @Override
     public void onClick(View view) {
-
     }
 
     @Override
@@ -138,17 +161,19 @@ public class VideoListingHolderMvpImpl implements ViewMvp, ViewMvpSearch, Search
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_settings) {
+            Toast.makeText(mContext, "settings Clicked", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_gallery) {
+            Toast.makeText(mContext, "gallery Clicked", Toast.LENGTH_SHORT).show();
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_help) {
+            Toast.makeText(mContext, "hep Clicked", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_share) {
+            Toast.makeText(mContext, "share Clicked", Toast.LENGTH_SHORT).show();
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_buy_pro) {
+            Toast.makeText(mContext, "buy pro Clicked", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -157,4 +182,41 @@ public class VideoListingHolderMvpImpl implements ViewMvp, ViewMvpSearch, Search
         return true;
     }
 
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        switch (tab.getPosition())
+        {
+            case 0:
+                mAppBarLayout.setBackgroundResource(R.color.black_dialog_header);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    mWindow.setStatusBarColor(mContext.getResources().getColor(R.color.transparent_black));
+                break;
+            case 1:
+                mAppBarLayout.setBackgroundResource(R.color.colorPrimary);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    mWindow.setStatusBarColor(mContext.getResources().getColor(R.color.colorPrimaryDark));
+                break;
+
+            case 2:
+                mAppBarLayout.setBackgroundResource(R.color.primary);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    mWindow.setStatusBarColor(mContext.getResources().getColor(R.color.primaryDark));
+                break;
+
+            default:
+                mAppBarLayout.setBackgroundResource(R.color.black_dialog_header);
+
+        }
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
 }

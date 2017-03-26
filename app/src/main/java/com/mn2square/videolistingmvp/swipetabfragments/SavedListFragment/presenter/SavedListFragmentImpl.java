@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
@@ -43,6 +44,13 @@ public class SavedListFragmentImpl extends Fragment implements SavedListFragment
         ((VideoListingActivity)getActivity()).registerListener(this);
         ((VideoListingActivity)getActivity()).fetchSavedList();
         registerForContextMenu(mSavedListViewImpl.getSavedListView());
+        mSavedListViewImpl.getSavedListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedVideo = mVideoListInfo.getVideosList().get(i);
+                Toast.makeText(getActivity(), selectedVideo + "clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

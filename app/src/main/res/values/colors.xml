@@ -12,6 +12,8 @@
     <color name="black_background">#252c38</color>
     <color name="black_dialog_header">#191a23</color>
     <color name="green_shiny">#5CA9AE</color>
+        <color name="primary">#009688</color>
+        <color name="primaryDark">#00796b</color>
     <!--<color name="seekbar_color_light">#64a59d</color>-->
 
     <color

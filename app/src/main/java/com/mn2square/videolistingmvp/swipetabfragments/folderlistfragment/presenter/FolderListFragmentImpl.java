@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity;
@@ -47,6 +48,14 @@ public class FolderListFragmentImpl extends Fragment implements FolderListFragme
         ((VideoListingActivity)getActivity()).registerListener(this);
         ((VideoListingActivity)getActivity()).fetchFolderList();
         registerForContextMenu(mFolderListFragmentView.getExpandableListView());
+        mFolderListFragmentView.getExpandableListView().setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                String selectedVideo = mVideoListInfo.getFolderListHashMap().get(mFolderNames.get(i)).get(i1);
+                Toast.makeText(getActivity(), selectedVideo + "clicked", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
     }
 
     @Override
