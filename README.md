@@ -1,2 +1,4 @@
 # videolistingmvp
 Android video listing with swipe view tabs based on mvp design pattern with complete functionalities like searching and sorting
+
+![videotogif_2017 03 27_00 28 28](https://cloud.githubusercontent.com/assets/7812393/24334321/da24d4d8-1285-11e7-8a0f-8ced229b224f.gif)                                 ![videotogif_2017 03 27_00 30 13](https://cloud.githubusercontent.com/assets/7812393/24334340/2a5760b0-1286-11e7-8291-136867c2d0ee.gif)                                        ![videotogif_2017 03 27_00 32 34](https://cloud.githubusercontent.com/assets/7812393/24334341/2b43db20-1286-11e7-9816-f70c3de60e13.gif)                                            ![videotogif_2017 03 27_00 35 10](https://cloud.githubusercontent.com/assets/7812393/24334342/2c56a9d4-1286-11e7-9450-79923631cbd2.gif)
