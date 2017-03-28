@@ -29,3 +29,5 @@ The view is the layout view of the video listing.
 any of three component are easy replacable, also any change in one component of the application does not impact any other component in the application due to clean separation of roles.
 
 
+##Visit Website
+https://androidvideoplayer.com/
