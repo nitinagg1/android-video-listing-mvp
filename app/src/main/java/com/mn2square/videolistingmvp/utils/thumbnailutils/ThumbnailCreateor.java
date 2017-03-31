@@ -45,7 +45,7 @@ public class ThumbnailCreateor {
         protected Bitmap doInBackground(String...videoId) {
             this.data = Long.parseLong(videoId[0]);
             this.videoData = videoId[1];
-            Bitmap found = BitmapCache.GetInstance(VideoListingMvpApplication.getAppContext()).getBitmapFromDiskCache(videoData);
+            Bitmap found = BitmapCache.GetInstance().getBitmapFromDiskCache(videoData);
             if (found != null)
                 return found;
             Bitmap bitmap = MediaStore.Video.Thumbnails.getThumbnail(cr, this.data, MediaStore.Video.Thumbnails.MINI_KIND,null);
@@ -55,7 +55,7 @@ public class ThumbnailCreateor {
 
         @Override
         protected void onPostExecute(Bitmap bm) {
-            BitmapCache.GetInstance(VideoListingMvpApplication.getAppContext()).AddBitmapToCache(url, bm);
+            BitmapCache.GetInstance().AddBitmapToCache(url, bm);
             if (imageViewReference != null)
             {
                 ImageView imageView = imageViewReference.get();

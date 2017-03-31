@@ -80,7 +80,7 @@ public class VideoListAdapter extends ArrayAdapter<String> {
         viewHolder.resolution.setText(resolution);
 
         long videoid = mVideoListInfo.getVideoIdHashMap().get(videoFullPath);
-        Bitmap found = BitmapCache.GetInstance(mContext).GetBitmapFromMemoryCache(videoFullPath);
+        Bitmap found = BitmapCache.GetInstance().GetBitmapFromMemoryCache(videoFullPath);
         if (found != null)
             viewHolder.thumbnail.setImageBitmap(found);
         else {
@@ -100,17 +100,6 @@ public class VideoListAdapter extends ArrayAdapter<String> {
         videos = videoList;
         mVideoListInfo = videoListInfo;
     }
-
-//    public ListViewTabAdapter(Context context, int resource) {
-//        super(context, resource);
-//        ctx = context;
-//        videoListingLayout = resource;
-//
-//        int w = 100, h = 100;
-//        Bitmap.Config conf = Bitmap.Config.ARGB_8888; // see other conf types
-//        bmp = Bitmap.createBitmap(w, h, conf);
-//    }
-
 
     private class ViewHolder {
         CustomImageView thumbnail;

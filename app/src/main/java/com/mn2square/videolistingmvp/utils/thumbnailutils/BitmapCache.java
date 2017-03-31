@@ -7,6 +7,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.util.LruCache;
 
+import com.mn2square.videolistingmvp.VideoListingMvpApplication;
+import com.mn2square.videolistingmvp.activity.views.VideoListingHolderMvpImpl;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -22,7 +25,6 @@ import java.security.NoSuchAlgorithmException;
 public class BitmapCache {
 
     private static BitmapCache mInstance;
-    private static Context ctx;
     private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
     // Compression settings when writing images to disk cache
     private static final Bitmap.CompressFormat DEFAULT_COMPRESS_FORMAT = Bitmap.CompressFormat.JPEG;
@@ -37,9 +39,8 @@ public class BitmapCache {
 
     private final LruCache<String, Bitmap> mLruCache;
 
-    public static BitmapCache GetInstance(Context context) {
+    public static BitmapCache GetInstance() {
         if (mInstance == null) {
-            ctx = context;
             mInstance = new BitmapCache();
         }
         return mInstance;
@@ -57,7 +58,7 @@ public class BitmapCache {
         final int maxMemory = (int)(Runtime.getRuntime().maxMemory()/1024);
         final int cacheSize = maxMemory/8;
         mDiskLruCache = null;
-        File cacheDir = getDiskCacheDir(ctx, DISK_CACHE_SUBDIR);
+        File cacheDir = getDiskCacheDir(VideoListingMvpApplication.getAppContext(), DISK_CACHE_SUBDIR);
         new InitDiskCacheTask().execute(cacheDir);
 
         mLruCache = new LruCache<String, Bitmap>(cacheSize)

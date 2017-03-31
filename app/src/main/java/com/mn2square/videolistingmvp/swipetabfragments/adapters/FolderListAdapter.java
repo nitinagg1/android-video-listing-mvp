@@ -158,7 +158,7 @@ public class FolderListAdapter extends BaseExpandableListAdapter {
 
 
         long videoid = mVideoListInfo.getVideoIdHashMap().get(videoFullPath);
-        Bitmap found = BitmapCache.GetInstance(mContext).GetBitmapFromMemoryCache(videoFullPath);
+        Bitmap found = BitmapCache.GetInstance().GetBitmapFromMemoryCache(videoFullPath);
         if (found != null)
             viewHolder.thumbnail.setImageBitmap(found);
         else {
