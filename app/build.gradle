@@ -26,5 +26,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     testCompile 'junit:junit:4.12'
 }

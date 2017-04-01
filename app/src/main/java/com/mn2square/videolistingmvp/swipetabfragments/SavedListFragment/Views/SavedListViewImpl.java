@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.model.VideoListInfo;
 import com.mn2square.videolistingmvp.swipetabfragments.adapters.VideoListAdapter;
@@ -20,13 +21,13 @@ public class SavedListViewImpl implements SavedListView{
 
     VideoListAdapter mSavedListAdapter;
     View mSavedVideoListView;
-    ListView mSavedListView;
+    ObservableListView mSavedListView;
 
     public SavedListViewImpl(Context context, ViewGroup container, LayoutInflater inflater)
     {
         mSavedVideoListView = inflater.inflate(R.layout.tab_videolist, container, false);
         mSavedListAdapter = new VideoListAdapter(context, R.layout.tab_child);
-        mSavedListView = (ListView)mSavedVideoListView.findViewById(R.id.ListView);
+        mSavedListView = (ObservableListView) mSavedVideoListView.findViewById(R.id.ListView);
         mSavedListView.setAdapter(mSavedListAdapter);
     }
 
@@ -43,7 +44,7 @@ public class SavedListViewImpl implements SavedListView{
     }
 
     @Override
-    public ListView getSavedListView() {
+    public ObservableListView getSavedListView() {
         return mSavedListView;
     }
 }

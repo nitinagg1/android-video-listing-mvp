@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
@@ -35,6 +37,7 @@ public class ListFragmentImpl extends Fragment implements ListFragment{
 
         mListFragmentViewImpl = new ListFragmentViewImpl(getActivity(), container, inflater);
 
+        mListFragmentViewImpl.getListView().addHeaderView(inflater.inflate(R.layout.padding, mListFragmentViewImpl.getListView(), false));
         return mListFragmentViewImpl.getView();
 
     }
@@ -58,6 +61,24 @@ public class ListFragmentImpl extends Fragment implements ListFragment{
                 Toast.makeText(getActivity(), selectedVideo + "clicked", Toast.LENGTH_SHORT).show();
             }
         });
+
+        mListFragmentViewImpl.getListView().setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
+            @Override
+            public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+                ((VideoListingActivity)getActivity()).onScrollChanged(scrollY, firstScroll, dragging);
+            }
+
+            @Override
+            public void onDownMotionEvent() {
+                ((VideoListingActivity)getActivity()).onDownMotionEvent();
+            }
+
+            @Override
+            public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+                ((VideoListingActivity)getActivity()).onUpOrCancelMotionEvent(scrollState);
+            }
+        });
+
 
     }
 

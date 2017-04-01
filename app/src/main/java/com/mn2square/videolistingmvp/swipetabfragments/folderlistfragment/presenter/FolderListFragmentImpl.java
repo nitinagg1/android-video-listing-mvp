@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
@@ -39,6 +41,7 @@ public class FolderListFragmentImpl extends Fragment implements FolderListFragme
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         mFolderListFragmentView = new FolderListFragmentViewImpl(getActivity(), container, inflater);
+        mFolderListFragmentView.getExpandableListView().addHeaderView(inflater.inflate(R.layout.padding, mFolderListFragmentView.getExpandableListView(), false));
         return mFolderListFragmentView.getView();
     }
 
@@ -56,6 +59,24 @@ public class FolderListFragmentImpl extends Fragment implements FolderListFragme
                 return false;
             }
         });
+
+        mFolderListFragmentView.getExpandableListView().setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
+           @Override
+            public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+                ((VideoListingActivity)getActivity()).onScrollChanged(scrollY, firstScroll, dragging);
+            }
+
+            @Override
+            public void onDownMotionEvent() {
+                ((VideoListingActivity)getActivity()).onDownMotionEvent();
+            }
+
+            @Override
+            public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+                ((VideoListingActivity)getActivity()).onUpOrCancelMotionEvent(scrollState);
+            }
+        });
+
     }
 
     @Override

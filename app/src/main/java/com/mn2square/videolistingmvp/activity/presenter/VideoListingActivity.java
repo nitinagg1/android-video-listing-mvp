@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.utils.FolderListGenerator;
 import com.mn2square.videolistingmvp.utils.VideoSearch;
@@ -23,7 +25,7 @@ import com.mn2square.videolistingmvp.activity.views.VideoListingHolderMvpImpl;
 import com.mn2square.videolistingmvp.activity.views.ViewMvpSearch;
 
 public class VideoListingActivity extends AppCompatActivity
-        implements VideoListManager.VideoListManagerListener{
+        implements VideoListManager.VideoListManagerListener, ObservableScrollViewCallbacks{
 
     private static final String SORT_TYPE_PREFERENCE_KEY = "sort_type";
     private int mSortingType;
@@ -255,4 +257,21 @@ public class VideoListingActivity extends AppCompatActivity
         mFolderListFragment = folderListFragment;
     }
 
+
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+
+        mVideoListingHolderMvpImpl.onScrollChanged(scrollY,firstScroll, dragging);
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+
+        mVideoListingHolderMvpImpl.onDownMotionEvent();
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+        mVideoListingHolderMvpImpl.onUpOrCancelMotionEvent(scrollState);
+    }
 }

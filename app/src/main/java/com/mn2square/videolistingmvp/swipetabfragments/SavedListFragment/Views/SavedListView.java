@@ -3,6 +3,7 @@ package com.mn2square.videolistingmvp.swipetabfragments.SavedListFragment.Views;
 import android.view.View;
 import android.widget.ListView;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.mn2square.videolistingmvp.activity.model.VideoListInfo;
 
 import java.util.List;
@@ -14,5 +15,5 @@ import java.util.List;
 public interface SavedListView {
     View getView();
     void bindSavedVideoList(List<String> savedVideoList, VideoListInfo videoListInfo);
-    ListView getSavedListView();
+    ObservableListView getSavedListView();
 }

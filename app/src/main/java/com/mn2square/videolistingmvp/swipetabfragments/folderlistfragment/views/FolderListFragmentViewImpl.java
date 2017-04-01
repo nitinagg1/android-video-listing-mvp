@@ -9,6 +9,7 @@ import android.widget.ExpandableListView;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.model.VideoListInfo;
 import com.mn2square.videolistingmvp.swipetabfragments.adapters.FolderListAdapter;
+import com.mn2square.videolistingmvp.swipetabfragments.folderlistfragment.ObservableFolderList.ObservableExpandableListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,14 +22,14 @@ import java.util.List;
 public class FolderListFragmentViewImpl implements FolderListFragmentView {
 
     View mFragmentFolderListView;
-    ExpandableListView mExpandableListView;
+    ObservableExpandableListView mExpandableListView;
     FolderListAdapter mFolderListAdapter;
 
 
     public FolderListFragmentViewImpl(Context context, ViewGroup container, LayoutInflater inflater)
     {
         mFragmentFolderListView = inflater.inflate(R.layout.tab_folderlist, container, false);
-        mExpandableListView = (ExpandableListView) mFragmentFolderListView.findViewById(R.id.expandablelistview);
+        mExpandableListView = (ObservableExpandableListView) mFragmentFolderListView.findViewById(R.id.expandablelistview);
         mFolderListAdapter = new FolderListAdapter(context);
         mExpandableListView.setAdapter(mFolderListAdapter);
     }
@@ -39,7 +40,7 @@ public class FolderListFragmentViewImpl implements FolderListFragmentView {
     }
 
     @Override
-    public ExpandableListView getExpandableListView() {
+    public ObservableExpandableListView getExpandableListView() {
         return mExpandableListView;
     }
 

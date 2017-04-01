@@ -3,14 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
+    <com.github.ksoichiro.android.observablescrollview.ObservableListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ListView"
         android:headerDividersEnabled="false"
         android:dividerHeight="0.25dp"
-        >
-    </ListView>
+        />
 
 
 </RelativeLayout>

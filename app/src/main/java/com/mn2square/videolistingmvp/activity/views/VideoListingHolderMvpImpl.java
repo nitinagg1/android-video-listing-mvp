@@ -15,16 +15,22 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
+import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.viewpageradapter.ViewPagerAdapter;
+import com.nineoldandroids.view.ViewHelper;
+import com.nineoldandroids.view.ViewPropertyAnimator;
 
 /**
  * Created by nitinagarwal on 3/5/17.
@@ -41,8 +47,13 @@ public class VideoListingHolderMvpImpl implements ViewMvp, ViewMvpSearch, Search
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private AppBarLayout mAppBarLayout;
+    private Toolbar mToolbar;
     private Context mContext;
+    private FloatingActionButton mFabRecondVideoButton;
+    private float mPixelDensityFactor;
     Window mWindow;
+
+    int mBaseTranslationY;
 
     private static String TAG = "videolistmvp";
 
@@ -51,6 +62,9 @@ public class VideoListingHolderMvpImpl implements ViewMvp, ViewMvpSearch, Search
 
         mContext = context;
         AppCompatActivity appCompatActivity = (AppCompatActivity)context;
+
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        mPixelDensityFactor = metrics.densityDpi/160f;
         mRootView = LayoutInflater.from(context).inflate(R.layout.activity_main, container);
         mViewPager = (ViewPager)mRootView.findViewById(R.id.viewpager);
         mViewPager.setCurrentItem(0);
@@ -75,19 +89,19 @@ public class VideoListingHolderMvpImpl implements ViewMvp, ViewMvpSearch, Search
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             mTabLayout.addOnTabSelectedListener(this);
 
-        Toolbar toolbar = (Toolbar) mRootView.findViewById(R.id.tool_bar);
-        appCompatActivity.setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) mRootView.findViewById(R.id.tool_bar);
+        appCompatActivity.setSupportActionBar(mToolbar);
         DrawerLayout drawer = (DrawerLayout) mRootView.findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                (Activity) context, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                (Activity) context, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) mRootView.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FloatingActionButton fabRecordCameraVideo = (FloatingActionButton)mRootView.findViewById(R.id.fab_video_record);
-        fabRecordCameraVideo.setOnClickListener(new View.OnClickListener() {
+        mFabRecondVideoButton = (FloatingActionButton)mRootView.findViewById(R.id.fab_video_record);
+        mFabRecondVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext,"fab clicked", Toast.LENGTH_SHORT).show();
@@ -217,6 +231,87 @@ public class VideoListingHolderMvpImpl implements ViewMvp, ViewMvpSearch, Search
 
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
+    }
+
+
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+        if (dragging)
+        {
+            int toolbarHeight = mToolbar.getHeight();
+            float currentHeaderTranslationY = ViewHelper.getTranslationY(mAppBarLayout);
+            if (firstScroll) {
+                if (-toolbarHeight < currentHeaderTranslationY) {
+                    mBaseTranslationY = scrollY;
+                }
+            }
+            float headerTranslationY = ScrollUtils.getFloat(-(scrollY - mBaseTranslationY), -toolbarHeight, 0);
+
+            ViewPropertyAnimator.animate(mAppBarLayout).cancel();
+
+            ViewHelper.setTranslationY(mAppBarLayout, headerTranslationY);
+        }
+    }
+
+    public void onDownMotionEvent() {
 
     }
+
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+        mBaseTranslationY = 0;
+
+//        Fragment fragment = GetCurrentFragment();
+//        if (fragment == null) {
+//            return;
+//        }
+        int toolbarHeight = mToolbar.getHeight();
+
+        if (scrollState == ScrollState.DOWN)
+        {
+            showToolbar();
+        }
+        else if(scrollState == ScrollState.UP)
+        {
+            //if (toolbarHeight <= scrollY) {
+            hideToolbar();
+            //}
+        }
+
+
+
+    }
+
+
+    private void showToolbar() {
+        float headerTranslationY = ViewHelper.getTranslationY(mAppBarLayout);
+        if (headerTranslationY != 0) {
+            ViewPropertyAnimator.animate(mAppBarLayout).cancel();
+            ViewPropertyAnimator.animate(mAppBarLayout).translationY(0).setDuration(200).start();
+            ViewPropertyAnimator.animate(mFabRecondVideoButton).translationY(0).setDuration(200).start();
+        }
+
+        mAppBarLayout.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+        mFabRecondVideoButton.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+        //propagateToolbarState(true);
+    }
+
+    private void hideToolbar() {
+
+        float headerTranslationY = ViewHelper.getTranslationY(mAppBarLayout);
+        float fabTranslationY = ViewHelper.getTranslationY(mFabRecondVideoButton);
+        int toolbarHeight = mToolbar.getHeight();
+        int fabButtonBottomMargin = 16;
+        fabButtonBottomMargin += 2; //adding 2 dp to make sure the button is hidden completely
+        int floatingButtonHeight = mFabRecondVideoButton.getHeight() + (int)(fabButtonBottomMargin  * mPixelDensityFactor);
+        if (headerTranslationY != -toolbarHeight) {
+            ViewPropertyAnimator.animate(mAppBarLayout).cancel();
+            ViewPropertyAnimator.animate(mAppBarLayout).translationY(-toolbarHeight).setDuration(200).start();
+        }
+
+        if(fabTranslationY != floatingButtonHeight)
+        {
+            ViewPropertyAnimator.animate(mFabRecondVideoButton).cancel();
+            ViewPropertyAnimator.animate(mFabRecondVideoButton).translationY(floatingButtonHeight).setDuration(200).start();
+        }
+    }
+    
 }

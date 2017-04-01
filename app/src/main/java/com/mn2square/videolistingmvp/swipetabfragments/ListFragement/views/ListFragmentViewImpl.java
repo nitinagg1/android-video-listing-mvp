@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.swipetabfragments.adapters.VideoListAdapter;
 import com.mn2square.videolistingmvp.activity.model.VideoListInfo;
@@ -20,12 +21,12 @@ public class ListFragmentViewImpl implements ListFragmentView {
 
     View mFragemntVideoListView;
     VideoListAdapter mVideoListAdapter;
-    ListView mListView;
+    ObservableListView mListView;
     public ListFragmentViewImpl(Context context, ViewGroup container, LayoutInflater inflater)
     {
         mFragemntVideoListView = inflater.inflate(R.layout.tab_videolist, container, false);
         mVideoListAdapter = new VideoListAdapter(context, R.layout.tab_child);
-        mListView = (ListView)mFragemntVideoListView.findViewById(R.id.ListView);
+        mListView = (ObservableListView) mFragemntVideoListView.findViewById(R.id.ListView);
         mListView.setAdapter(mVideoListAdapter);
     }
 
@@ -35,7 +36,7 @@ public class ListFragmentViewImpl implements ListFragmentView {
     }
 
     @Override
-    public ListView getListView() {
+    public ObservableListView getListView() {
         return mListView;
     }
 

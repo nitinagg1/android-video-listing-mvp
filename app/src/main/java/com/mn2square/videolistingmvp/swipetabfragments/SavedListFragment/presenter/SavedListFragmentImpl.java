@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
 import com.mn2square.videolistingmvp.activity.model.VideoListInfo;
@@ -34,6 +36,8 @@ public class SavedListFragmentImpl extends Fragment implements SavedListFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         mSavedListViewImpl = new SavedListViewImpl(getActivity(), container, inflater);
+        mSavedListViewImpl.getSavedListView().addHeaderView(inflater.inflate(R.layout.padding, mSavedListViewImpl.getSavedListView(), false));
+
         return mSavedListViewImpl.getView();
 
     }
@@ -49,6 +53,24 @@ public class SavedListFragmentImpl extends Fragment implements SavedListFragment
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedVideo = mVideoListInfo.getVideosList().get(i);
                 Toast.makeText(getActivity(), selectedVideo + "clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mSavedListViewImpl.getSavedListView().setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
+
+            @Override
+            public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+                ((VideoListingActivity)getActivity()).onScrollChanged(scrollY, firstScroll, dragging);
+            }
+
+            @Override
+            public void onDownMotionEvent() {
+                ((VideoListingActivity)getActivity()).onDownMotionEvent();
+            }
+
+            @Override
+            public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+                ((VideoListingActivity)getActivity()).onUpOrCancelMotionEvent(scrollState);
             }
         });
     }
