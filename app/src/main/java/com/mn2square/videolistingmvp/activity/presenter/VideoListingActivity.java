@@ -1,5 +1,6 @@
 package com.mn2square.videolistingmvp.activity.presenter;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -23,6 +24,8 @@ import com.mn2square.videolistingmvp.swipetabfragments.SavedListFragment.present
 import com.mn2square.videolistingmvp.swipetabfragments.folderlistfragment.presenter.FolderListFragment;
 import com.mn2square.videolistingmvp.activity.views.VideoListingHolderMvpImpl;
 import com.mn2square.videolistingmvp.activity.views.ViewMvpSearch;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class VideoListingActivity extends AppCompatActivity
         implements VideoListManager.VideoListManagerListener, ObservableScrollViewCallbacks{
@@ -62,6 +65,11 @@ public class VideoListingActivity extends AppCompatActivity
         mVideoListManagerImpl.registerListener(this);
     }
 
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public void onBackPressed() {

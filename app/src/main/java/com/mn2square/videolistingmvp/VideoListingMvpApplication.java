@@ -6,6 +6,8 @@ import android.content.res.Resources;
 
 import com.squareup.leakcanary.LeakCanary;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
 /**
  * Created by nitinagarwal on 3/19/17.
  */
@@ -23,6 +25,13 @@ public class VideoListingMvpApplication extends Application{
             return;
         }
         LeakCanary.install(this);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-Light.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+
         instance = this;
 
     }
