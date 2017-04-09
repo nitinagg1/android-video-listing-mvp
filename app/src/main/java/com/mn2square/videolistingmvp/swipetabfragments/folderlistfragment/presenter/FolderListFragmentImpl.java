@@ -38,6 +38,7 @@ public class FolderListFragmentImpl extends Fragment implements VideoListFragmen
     VideoListInfo mVideoListInfo;
     ArrayList<String> mFolderNames;
     VideoUserInteraction mCallback;
+    ObservableScrollViewCallbacks mObservableScrollViewCallbacks;
 
     @Nullable
     @Override
@@ -63,6 +64,16 @@ public class FolderListFragmentImpl extends Fragment implements VideoListFragmen
                     + " must implement VideoUserInteraction");
         }
 
+        try
+        {
+            mObservableScrollViewCallbacks = ((VideoListingActivity) getActivity()).getVideoListActivityView();
+
+        }
+        catch (ClassCastException ex)
+        {
+            throw new ClassCastException("videolistingactivityview must implement ObservalbleScrollViewCallbacks");
+        }
+
         mFolderListFragmentView.getExpandableListView().setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
@@ -75,17 +86,17 @@ public class FolderListFragmentImpl extends Fragment implements VideoListFragmen
         mFolderListFragmentView.getExpandableListView().setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
            @Override
             public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-                ((VideoListingActivity)getActivity()).onScrollChanged(scrollY, firstScroll, dragging);
+                mObservableScrollViewCallbacks.onScrollChanged(scrollY, firstScroll, dragging);
             }
 
             @Override
             public void onDownMotionEvent() {
-                ((VideoListingActivity)getActivity()).onDownMotionEvent();
+                mObservableScrollViewCallbacks.onDownMotionEvent();
             }
 
             @Override
             public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-                ((VideoListingActivity)getActivity()).onUpOrCancelMotionEvent(scrollState);
+                mObservableScrollViewCallbacks.onUpOrCancelMotionEvent(scrollState);
             }
         });
 

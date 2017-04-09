@@ -24,6 +24,7 @@ import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
 import com.mn2square.videolistingmvp.R;
@@ -37,7 +38,7 @@ import com.nineoldandroids.view.ViewPropertyAnimator;
 
 public class VideoListingHolderMvpImpl implements ViewMvpVideoList, ViewMvpSearch, SearchView.OnClickListener,
         SearchView.OnCloseListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener,
-        TabLayout.OnTabSelectedListener
+        TabLayout.OnTabSelectedListener, ObservableScrollViewCallbacks
 {
 
     private View mRootView;
@@ -233,6 +234,7 @@ public class VideoListingHolderMvpImpl implements ViewMvpVideoList, ViewMvpSearc
     }
 
 
+    @Override
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
         if (dragging)
         {
@@ -251,18 +253,14 @@ public class VideoListingHolderMvpImpl implements ViewMvpVideoList, ViewMvpSearc
         }
     }
 
+    @Override
     public void onDownMotionEvent() {
 
     }
 
+    @Override
     public void onUpOrCancelMotionEvent(ScrollState scrollState) {
         mBaseTranslationY = 0;
-
-//        Fragment fragment = GetCurrentFragment();
-//        if (fragment == null) {
-//            return;
-//        }
-        int toolbarHeight = mToolbar.getHeight();
 
         if (scrollState == ScrollState.DOWN)
         {
@@ -270,13 +268,8 @@ public class VideoListingHolderMvpImpl implements ViewMvpVideoList, ViewMvpSearc
         }
         else if(scrollState == ScrollState.UP)
         {
-            //if (toolbarHeight <= scrollY) {
             hideToolbar();
-            //}
         }
-
-
-
     }
 
 

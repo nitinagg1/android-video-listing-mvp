@@ -30,7 +30,7 @@ import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class VideoListingActivity extends AppCompatActivity
-        implements VideoListManager.VideoListManagerListener, ObservableScrollViewCallbacks, VideoUserInteraction{
+        implements VideoListManager.VideoListManagerListener, VideoUserInteraction{
 
     private static final String SORT_TYPE_PREFERENCE_KEY = "sort_type";
     private int mSortingType;
@@ -272,25 +272,13 @@ public class VideoListingActivity extends AppCompatActivity
     }
 
     @Override
-    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-
-        mVideoListingHolderMvpImpl.onScrollChanged(scrollY,firstScroll, dragging);
-    }
-
-    @Override
-    public void onDownMotionEvent() {
-
-        mVideoListingHolderMvpImpl.onDownMotionEvent();
-    }
-
-    @Override
-    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-        mVideoListingHolderMvpImpl.onUpOrCancelMotionEvent(scrollState);
-    }
-
-    @Override
     public void onVideoSelected(String videoPath) {
         Toast.makeText(this, videoPath + "clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    public VideoListingHolderMvpImpl getVideoListActivityView()
+    {
+        return mVideoListingHolderMvpImpl;
     }
 
     @Override

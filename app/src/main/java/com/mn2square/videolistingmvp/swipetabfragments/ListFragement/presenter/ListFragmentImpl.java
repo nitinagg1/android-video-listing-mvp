@@ -37,6 +37,7 @@ public class ListFragmentImpl extends Fragment implements VideoListFragmentInter
     ListFragmentViewImpl mListFragmentViewImpl;
     VideoListInfo mVideoListInfo;
     VideoUserInteraction mCallback;
+    ObservableScrollViewCallbacks mObservableScrollViewCallbacks;
 
     @Nullable
     @Override
@@ -70,6 +71,16 @@ public class ListFragmentImpl extends Fragment implements VideoListFragmentInter
                     + " must implement VideoUserInteraction");
         }
 
+        try
+        {
+            mObservableScrollViewCallbacks = ((VideoListingActivity) getActivity()).getVideoListActivityView();
+
+        }
+        catch (ClassCastException ex)
+        {
+            throw new ClassCastException("videolistingactivityview must implement ObservalbleScrollViewCallbacks");
+        }
+
 
         mListFragmentViewImpl.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -82,17 +93,17 @@ public class ListFragmentImpl extends Fragment implements VideoListFragmentInter
         mListFragmentViewImpl.getListView().setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
             @Override
             public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-                ((VideoListingActivity)getActivity()).onScrollChanged(scrollY, firstScroll, dragging);
+                mObservableScrollViewCallbacks.onScrollChanged(scrollY, firstScroll, dragging);
             }
 
             @Override
             public void onDownMotionEvent() {
-                ((VideoListingActivity)getActivity()).onDownMotionEvent();
+                mObservableScrollViewCallbacks.onDownMotionEvent();
             }
 
             @Override
             public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-                ((VideoListingActivity)getActivity()).onUpOrCancelMotionEvent(scrollState);
+                mObservableScrollViewCallbacks.onUpOrCancelMotionEvent(scrollState);
             }
         });
     }
