@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -24,11 +25,12 @@ import com.mn2square.videolistingmvp.activity.manager.VideoListManager;
 import com.mn2square.videolistingmvp.activity.manager.VideoListManagerImpl;
 import com.mn2square.videolistingmvp.activity.views.VideoListingHolderMvpImpl;
 import com.mn2square.videolistingmvp.activity.views.ViewMvpSearch;
+import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class VideoListingActivity extends AppCompatActivity
-        implements VideoListManager.VideoListManagerListener, ObservableScrollViewCallbacks{
+        implements VideoListManager.VideoListManagerListener, ObservableScrollViewCallbacks, VideoUserInteraction{
 
     private static final String SORT_TYPE_PREFERENCE_KEY = "sort_type";
     private int mSortingType;
@@ -38,6 +40,10 @@ public class VideoListingActivity extends AppCompatActivity
     public static final int DATE_DESC = 3;
     public static final int SIZE_ASC = 4;
     public static final int SIZE_DESC = 5;
+
+    public static final int SHARE_VIDEO = 0;
+    public static final int DELETE_VIDEO = 1;
+    public static final int RENAME_VIDEO = 2;
 
     VideoListingHolderMvpImpl mVideoListingHolderMvpImpl;
     VideoListManagerImpl mVideoListManagerImpl;
@@ -280,5 +286,45 @@ public class VideoListingActivity extends AppCompatActivity
     @Override
     public void onUpOrCancelMotionEvent(ScrollState scrollState) {
         mVideoListingHolderMvpImpl.onUpOrCancelMotionEvent(scrollState);
+    }
+
+    @Override
+    public void onVideoSelected(String videoPath) {
+        Toast.makeText(this, videoPath + "clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onVideoLongPressed(String videoPath, int itemId) {
+
+        switch (itemId)
+        {
+            case R.id.long_press_menu_share:
+                LongPressOptions.shareFile(this, videoPath);
+                break;
+
+            case R.id.long_press_menu_delete:
+                int deleteVideoId = mVideoListInfo.getVideoIdHashMap().get(videoPath);
+                LongPressOptions.deleteFile(this, videoPath, deleteVideoId);
+                break;
+
+            case R.id.long_press_menu_rename:
+                String selectedVideoTitleWithExtension = mVideoListInfo.getVideoTitleHashMap().get(videoPath);
+                int index = selectedVideoTitleWithExtension.lastIndexOf('.');
+                String selectedVideoTitleForRename;
+                String extensionValue;
+                if (index > 0) {
+                    selectedVideoTitleForRename = selectedVideoTitleWithExtension.substring(0, index);
+                    extensionValue = selectedVideoTitleWithExtension.substring(index, selectedVideoTitleWithExtension.length());
+                } else {
+                    selectedVideoTitleForRename = selectedVideoTitleWithExtension;
+                    extensionValue = "";
+                }
+
+                int renameVideoId = mVideoListInfo.getVideoIdHashMap().get(videoPath);
+                LongPressOptions.renameFile(this, selectedVideoTitleForRename, videoPath,
+                        extensionValue, renameVideoId);
+                break;
+        }
+
     }
 }

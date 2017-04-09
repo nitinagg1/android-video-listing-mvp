@@ -39,10 +39,9 @@ public class FolderListFragmentViewImpl implements FolderListFragmentView {
         return mExpandableListView;
     }
 
+    @Override
     public void bindVideoList(HashMap<String, List<String>> folderListHashMap, ArrayList<String> folderNames, VideoListInfo videoListInfo)
     {
-
-
         mFolderListAdapter.bindVideoList(folderListHashMap, folderNames, videoListInfo);
         mFolderListAdapter.notifyDataSetChanged();
     }

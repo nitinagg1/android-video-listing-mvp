@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
+import com.mn2square.videolistingmvp.activity.presenter.VideoUserInteraction;
 import com.mn2square.videolistingmvp.swipetabfragments.VideoListFragmentInterface.VideoListFragmentInterface;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
 import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
@@ -31,6 +32,7 @@ public class SavedListFragmentImpl extends Fragment implements VideoListFragment
 
     SavedListViewImpl mSavedListViewImpl;
     VideoListInfo mVideoListInfo;
+    VideoUserInteraction mCallback;
 
     @Nullable
     @Override
@@ -49,11 +51,21 @@ public class SavedListFragmentImpl extends Fragment implements VideoListFragment
         ((VideoListingActivity)getActivity()).registerListener(this);
         ((VideoListingActivity)getActivity()).fetchSavedList();
         registerForContextMenu(mSavedListViewImpl.getSavedListView());
+
+        try
+        {
+            mCallback = ((VideoListingActivity)getActivity());
+        }
+        catch (ClassCastException ex) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement VideoUserInteraction");
+        }
+
         mSavedListViewImpl.getSavedListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String selectedVideo = mVideoListInfo.getVideosList().get(i);
-                Toast.makeText(getActivity(), selectedVideo + "clicked", Toast.LENGTH_SHORT).show();
+                String selectedVideo = mVideoListInfo.getSavedVideoList().get(i - 1); // adjust for padding
+                mCallback.onVideoSelected(selectedVideo);
             }
         });
 
@@ -87,40 +99,9 @@ public class SavedListFragmentImpl extends Fragment implements VideoListFragment
         if (getUserVisibleHint())
         {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            switch (item.getItemId()) {
-                case R.id.long_press_menu_share:
-                    String selectedVideoShare = mVideoListInfo.getSavedVideoList().get(info.position);
-                    LongPressOptions.shareFile(getActivity(), selectedVideoShare);
-
-                    return true;
-                case R.id.long_press_menu_delete:
-                    String selectedVideoDelete = mVideoListInfo.getSavedVideoList().get(info.position);
-                    int deleteVideoId = mVideoListInfo.getVideoIdHashMap().get(selectedVideoDelete);
-                    LongPressOptions.deleteFile(getActivity(), selectedVideoDelete, deleteVideoId);
-
-                    return true;
-                case R.id.long_press_menu_rename:
-                    String selectedVideoRename = mVideoListInfo.getSavedVideoList().get(info.position);
-                    String selectedVideoTitleWithExtension = mVideoListInfo.getVideoTitleHashMap().get(selectedVideoRename);
-                    int index = selectedVideoTitleWithExtension.lastIndexOf('.');
-                    String selectedVideoTitleForRename;
-                    String extensionValue;
-                    if (index > 0) {
-                        selectedVideoTitleForRename = selectedVideoTitleWithExtension.substring(0, index);
-                        extensionValue = selectedVideoTitleWithExtension.substring(index, selectedVideoTitleWithExtension.length());
-                    } else {
-                        selectedVideoTitleForRename = selectedVideoTitleWithExtension;
-                        extensionValue = "";
-                    }
-
-                    int renameVideoId = mVideoListInfo.getVideoIdHashMap().get(selectedVideoRename);
-                    LongPressOptions.renameFile(getActivity(), selectedVideoTitleForRename, selectedVideoRename,
-                            extensionValue, renameVideoId);
-
-                    return true;
-                default:
-                    return super.onContextItemSelected(item);
-            }
+            String selectedVideo = mVideoListInfo.getSavedVideoList().get(info.position - 1);
+            mCallback.onVideoLongPressed(selectedVideo, item.getItemId());
+            return true;
         }
         return false;
     }

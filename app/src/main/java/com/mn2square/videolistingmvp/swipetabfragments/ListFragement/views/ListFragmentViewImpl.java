@@ -36,6 +36,7 @@ public class ListFragmentViewImpl implements ListFragmentView {
         return mListView;
     }
 
+    @Override
     public void bindVideoList(List<String> videos, VideoListInfo videoListInfo)
     {
         mVideoListAdapter.bindVideoList(videos, videoListInfo);

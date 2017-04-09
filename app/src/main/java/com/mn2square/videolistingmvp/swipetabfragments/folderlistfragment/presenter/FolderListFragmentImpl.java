@@ -16,6 +16,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity;
+import com.mn2square.videolistingmvp.activity.presenter.VideoUserInteraction;
 import com.mn2square.videolistingmvp.swipetabfragments.VideoListFragmentInterface.VideoListFragmentInterface;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
 import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
@@ -36,6 +37,7 @@ public class FolderListFragmentImpl extends Fragment implements VideoListFragmen
     FolderListFragmentViewImpl mFolderListFragmentView;
     VideoListInfo mVideoListInfo;
     ArrayList<String> mFolderNames;
+    VideoUserInteraction mCallback;
 
     @Nullable
     @Override
@@ -52,11 +54,20 @@ public class FolderListFragmentImpl extends Fragment implements VideoListFragmen
         ((VideoListingActivity)getActivity()).registerListener(this);
         ((VideoListingActivity)getActivity()).fetchFolderList();
         registerForContextMenu(mFolderListFragmentView.getExpandableListView());
+        try
+        {
+            mCallback = ((VideoListingActivity)getActivity());
+        }
+        catch (ClassCastException ex) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement VideoUserInteraction");
+        }
+
         mFolderListFragmentView.getExpandableListView().setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
                 String selectedVideo = mVideoListInfo.getFolderListHashMap().get(mFolderNames.get(i)).get(i1);
-                Toast.makeText(getActivity(), selectedVideo + "clicked", Toast.LENGTH_SHORT).show();
+                mCallback.onVideoSelected(selectedVideo);
                 return false;
             }
         });
@@ -93,37 +104,8 @@ public class FolderListFragmentImpl extends Fragment implements VideoListFragmen
                     ExpandableListView.getPackedPositionChild(info.packedPosition);
             String selectedVideo = mVideoListInfo.getFolderListHashMap().get(mFolderNames.get(group)).get(child);
 
-            switch (item.getItemId()) {
-                case R.id.long_press_menu_share:
-                    LongPressOptions.shareFile(getActivity(), selectedVideo);
-                    return true;
-
-                case R.id.long_press_menu_delete:
-                    int deleteVideoId = mVideoListInfo.getVideoIdHashMap().get(selectedVideo);
-                    LongPressOptions.deleteFile(getActivity(), selectedVideo, deleteVideoId);
-                    return true;
-
-                case R.id.long_press_menu_rename:
-                    String selectedVideoTitleWithExtension = mVideoListInfo.getVideoTitleHashMap().get(selectedVideo);
-                    int index = selectedVideoTitleWithExtension.lastIndexOf('.');
-                    final String selectedVideoTitleForRename;
-                    final String extensionValue;
-                    if (index > 0) {
-                        selectedVideoTitleForRename = selectedVideoTitleWithExtension.substring(0, index);
-                        extensionValue = selectedVideoTitleWithExtension.substring(index, selectedVideoTitleWithExtension.length());
-                    } else {
-                        selectedVideoTitleForRename = selectedVideoTitleWithExtension;
-                        extensionValue = "";
-                    }
-
-                    int renameVideoId = mVideoListInfo.getVideoIdHashMap().get(selectedVideo);
-                    LongPressOptions.renameFile(getActivity(), selectedVideoTitleForRename, selectedVideo,
-                            extensionValue, renameVideoId);
-                    return true;
-
-                default:
-                    return super.onContextItemSelected(item);
-            }
+            mCallback.onVideoLongPressed(selectedVideo, item.getItemId());
+            return true;
         }
         return false;
     }
@@ -167,7 +149,6 @@ public class FolderListFragmentImpl extends Fragment implements VideoListFragmen
                     String lhsString = lhs.substring(lhs.lastIndexOf('/') + 1);
                     String rhsString = rhs.substring(rhs.lastIndexOf('/') + 1);
                     return lhsString.compareToIgnoreCase(rhsString);
-                    //this case we need the comparison to be ignore case
                 } else {
                     return -1;
                 }
