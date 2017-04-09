@@ -15,5 +15,6 @@ public interface VideoListManager {
     void getVideosWithNewSorting(int sortType);
     void registerListener(VideoListManagerListener videoListManagerListener);
 
-    void UnRegisterListener();
+    void unRegisterListener();
+
 }

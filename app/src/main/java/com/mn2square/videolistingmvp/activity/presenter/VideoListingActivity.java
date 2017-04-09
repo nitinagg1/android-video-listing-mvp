@@ -8,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -292,7 +293,8 @@ public class VideoListingActivity extends AppCompatActivity
 
             case R.id.long_press_menu_delete:
                 int deleteVideoId = mVideoListInfo.getVideoIdHashMap().get(videoPath);
-                LongPressOptions.deleteFile(this, videoPath, deleteVideoId);
+                LongPressOptions.deleteFile(this, videoPath, deleteVideoId, mVideoListManagerImpl);
+                Log.d("nitin123", "we are here");
                 break;
 
             case R.id.long_press_menu_rename:
@@ -310,7 +312,7 @@ public class VideoListingActivity extends AppCompatActivity
 
                 int renameVideoId = mVideoListInfo.getVideoIdHashMap().get(videoPath);
                 LongPressOptions.renameFile(this, selectedVideoTitleForRename, videoPath,
-                        extensionValue, renameVideoId);
+                        extensionValue, renameVideoId, mVideoListManagerImpl);
                 break;
         }
 

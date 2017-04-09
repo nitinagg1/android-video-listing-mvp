@@ -1,6 +1,7 @@
 package com.mn2square.videolistingmvp.activity.manager;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
@@ -24,7 +25,7 @@ import static com.mn2square.videolistingmvp.activity.presenter.VideoListingActiv
  * Created by nitinagarwal on 3/6/17.
  */
 
-public class VideoListManagerImpl implements LoaderManager.LoaderCallbacks<Cursor>, VideoListManager {
+public class VideoListManagerImpl implements LoaderManager.LoaderCallbacks<Cursor>, VideoListManager, VideoListUpdateManager {
 
     private static final int URL_LOADER_EXTERNAL = 0;
 
@@ -105,7 +106,6 @@ public class VideoListManagerImpl implements LoaderManager.LoaderCallbacks<Curso
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Toast.makeText(mContext, "Loader Reset", Toast.LENGTH_SHORT).show();
     }
     
     private void updateVideoList(Cursor cursor)
@@ -146,7 +146,25 @@ public class VideoListManagerImpl implements LoaderManager.LoaderCallbacks<Curso
     }
 
     @Override
-    public void UnRegisterListener() {
+    public void unRegisterListener() {
         mVideoListManagerListerner = null;
+    }
+
+    @Override
+    public void updateForDeleteVideo(int id) {
+        mContext.getContentResolver().delete(
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Video.Media._ID+ "=" + id, null);
+    }
+
+    @Override
+    public void updateForRenameVideo(int id, String newFilePath, String updatedTitle) {
+
+        ContentValues contentValues = new ContentValues(2);
+        contentValues.put(MediaStore.Video.Media.DATA, newFilePath);
+        contentValues.put(MediaStore.Video.Media.DISPLAY_NAME, updatedTitle);
+        mContext.getContentResolver().update(
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues,
+                MediaStore.Video.Media._ID + "=" + id, null);
     }
 }

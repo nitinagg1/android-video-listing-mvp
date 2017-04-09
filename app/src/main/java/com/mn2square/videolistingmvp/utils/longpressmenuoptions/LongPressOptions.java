@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mn2square.videolistingmvp.R;
+import com.mn2square.videolistingmvp.activity.manager.VideoListManager;
+import com.mn2square.videolistingmvp.activity.manager.VideoListUpdateManager;
 
 import java.io.File;
 
@@ -26,7 +28,8 @@ import java.io.File;
 public class LongPressOptions {
 
 
-    public static void deleteFile(final Context context, final String selectedVideoDelete, final int id)
+    public static void deleteFile(final Context context, final String selectedVideoDelete, final int id,
+                                  final VideoListUpdateManager videoListUpdateManager)
     {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
@@ -55,10 +58,7 @@ public class LongPressOptions {
                                 Uri.parse("file://"
                                         + Environment.getExternalStorageDirectory())));
                     }
-
-                    context.getContentResolver().delete(
-                            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                            MediaStore.Video.Media._ID+ "=" + id, null);
+                    videoListUpdateManager.updateForDeleteVideo(id);
                 }
 
             }
@@ -67,7 +67,7 @@ public class LongPressOptions {
     }
 
     public static void renameFile(final Context context, final String selectedVideoTitleForRename, final String selectedVideoRenamePath,
-                           final String extensionValue, final int id)
+                                  final String extensionValue, final int id, final VideoListUpdateManager videoListUpdateManager)
     {
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         LayoutInflater li = LayoutInflater.from(context);
@@ -100,13 +100,7 @@ public class LongPressOptions {
                     fileToRename.renameTo(fileNameNew);
 
                     String newFilePath = fileNameNew.toString();
-                    ContentValues contentValues = new ContentValues(2);
-                    contentValues.put(MediaStore.Video.Media.DATA, newFilePath);
-                    contentValues.put(MediaStore.Video.Media.DISPLAY_NAME, updatedTitle);
-                    context.getContentResolver().update(
-                            MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues,
-                            MediaStore.Video.Media._ID + "=" + id, null);
-
+                    videoListUpdateManager.updateForRenameVideo(id, newFilePath, updatedTitle);
                 }}});
 
         alert.show();
