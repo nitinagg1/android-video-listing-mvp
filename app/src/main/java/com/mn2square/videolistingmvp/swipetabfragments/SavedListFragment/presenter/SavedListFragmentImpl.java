@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
+import com.mn2square.videolistingmvp.swipetabfragments.VideoListFragmentInterface.VideoListFragmentInterface;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
 import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
 import com.mn2square.videolistingmvp.swipetabfragments.SavedListFragment.Views.SavedListViewImpl;
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by nitinagarwal on 3/13/17.
  */
 
-public class SavedListFragmentImpl extends Fragment implements SavedListFragment{
+public class SavedListFragmentImpl extends Fragment implements VideoListFragmentInterface {
 
     SavedListViewImpl mSavedListViewImpl;
     VideoListInfo mVideoListInfo;
@@ -76,9 +77,9 @@ public class SavedListFragmentImpl extends Fragment implements SavedListFragment
     }
 
     @Override
-    public void bindVideoList(List<String> videoList, VideoListInfo videoListInfo) {
+    public void bindVideoList(VideoListInfo videoListInfo) {
         mVideoListInfo = videoListInfo;
-        mSavedListViewImpl.bindSavedVideoList(videoList, videoListInfo);
+        mSavedListViewImpl.bindSavedVideoList(videoListInfo.getSavedVideoList(), videoListInfo);
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity;
+import com.mn2square.videolistingmvp.swipetabfragments.VideoListFragmentInterface.VideoListFragmentInterface;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
 import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
 import com.mn2square.videolistingmvp.swipetabfragments.folderlistfragment.views.FolderListFragmentViewImpl;
@@ -30,7 +31,7 @@ import java.util.List;
  * Created by nitinagarwal on 3/15/17.
  */
 
-public class FolderListFragmentImpl extends Fragment implements FolderListFragment{
+public class FolderListFragmentImpl extends Fragment implements VideoListFragmentInterface {
 
     FolderListFragmentViewImpl mFolderListFragmentView;
     VideoListInfo mVideoListInfo;
@@ -77,30 +78,6 @@ public class FolderListFragmentImpl extends Fragment implements FolderListFragme
             }
         });
 
-    }
-
-    @Override
-    public void bindVideoList(HashMap<String, List<String>> folderListHaspMap, VideoListInfo videoListInfo) {
-        mVideoListInfo = videoListInfo;
-        mFolderNames = new ArrayList<>();
-        mFolderNames.addAll(folderListHaspMap.keySet());
-
-        Collections.sort(mFolderNames, new Comparator<String>() {
-            @Override
-            public int compare(String lhs, String rhs) {
-                if(lhs.lastIndexOf('/') > 0 && rhs.lastIndexOf('/') >0)
-                {
-                    String lhsString = lhs.substring(lhs.lastIndexOf('/') + 1);
-                    String rhsString = rhs.substring(rhs.lastIndexOf('/') + 1);
-                    return lhsString.compareToIgnoreCase(rhsString);
-                    //this case we need the comparison to be ignore case
-                } else {
-                    return -1;
-                }
-            }
-        });
-
-        mFolderListFragmentView.bindVideoList(folderListHaspMap, mFolderNames, videoListInfo);
     }
 
     @Override
@@ -176,4 +153,27 @@ public class FolderListFragmentImpl extends Fragment implements FolderListFragme
         menuInflater.inflate(R.menu.menu_video_long_press, menu);
     }
 
+    @Override
+    public void bindVideoList(VideoListInfo videoListInfo) {
+        mVideoListInfo = videoListInfo;
+        mFolderNames = new ArrayList<>();
+        mFolderNames.addAll(videoListInfo.getFolderListHashMap().keySet());
+
+        Collections.sort(mFolderNames, new Comparator<String>() {
+            @Override
+            public int compare(String lhs, String rhs) {
+                if(lhs.lastIndexOf('/') > 0 && rhs.lastIndexOf('/') >0)
+                {
+                    String lhsString = lhs.substring(lhs.lastIndexOf('/') + 1);
+                    String rhsString = rhs.substring(rhs.lastIndexOf('/') + 1);
+                    return lhsString.compareToIgnoreCase(rhsString);
+                    //this case we need the comparison to be ignore case
+                } else {
+                    return -1;
+                }
+            }
+        });
+
+        mFolderListFragmentView.bindVideoList(videoListInfo.getFolderListHashMap(), mFolderNames, videoListInfo);
+    }
 }

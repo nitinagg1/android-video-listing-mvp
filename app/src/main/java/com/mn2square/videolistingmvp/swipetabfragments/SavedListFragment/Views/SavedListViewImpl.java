@@ -32,9 +32,8 @@ public class SavedListViewImpl implements SavedListView{
     }
 
     @Override
-    public void bindSavedVideoList(List<String> savedVideosList, VideoListInfo videoListInfo) {
-
-        mSavedListAdapter.bindVideoList(savedVideosList, videoListInfo);
+    public void bindSavedVideoList(List<String> savedVideoList, VideoListInfo videoListInfo) {
+        mSavedListAdapter.bindVideoList(savedVideoList, videoListInfo);
         mSavedListAdapter.notifyDataSetChanged();
     }
 

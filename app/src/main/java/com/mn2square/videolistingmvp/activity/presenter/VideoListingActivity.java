@@ -14,14 +14,14 @@ import android.view.MenuItem;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
+import com.mn2square.videolistingmvp.swipetabfragments.ListFragement.presenter.ListFragmentImpl;
+import com.mn2square.videolistingmvp.swipetabfragments.SavedListFragment.presenter.SavedListFragmentImpl;
+import com.mn2square.videolistingmvp.swipetabfragments.folderlistfragment.presenter.FolderListFragmentImpl;
 import com.mn2square.videolistingmvp.utils.FolderListGenerator;
 import com.mn2square.videolistingmvp.utils.VideoSearch;
-import com.mn2square.videolistingmvp.swipetabfragments.ListFragement.presenter.ListFragment;
 import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
 import com.mn2square.videolistingmvp.activity.manager.VideoListManager;
 import com.mn2square.videolistingmvp.activity.manager.VideoListManagerImpl;
-import com.mn2square.videolistingmvp.swipetabfragments.SavedListFragment.presenter.SavedListFragment;
-import com.mn2square.videolistingmvp.swipetabfragments.folderlistfragment.presenter.FolderListFragment;
 import com.mn2square.videolistingmvp.activity.views.VideoListingHolderMvpImpl;
 import com.mn2square.videolistingmvp.activity.views.ViewMvpSearch;
 
@@ -42,9 +42,9 @@ public class VideoListingActivity extends AppCompatActivity
     VideoListingHolderMvpImpl mVideoListingHolderMvpImpl;
     VideoListManagerImpl mVideoListManagerImpl;
     ViewPager mViewPager;
-    ListFragment mListFragment;
-    SavedListFragment mSavedListFragment;
-    FolderListFragment mFolderListFragment;
+    ListFragmentImpl mListFragment;
+    SavedListFragmentImpl mSavedListFragment;
+    FolderListFragmentImpl mFolderListFragment;
     VideoListInfo mVideoListInfo;
 
     boolean mIsInSearchMode;
@@ -114,11 +114,11 @@ public class VideoListingActivity extends AppCompatActivity
                                               mVideoListInfo.getFolderListHashMap()));
 
                 if(mListFragment != null)
-                    mListFragment.bindVideoList(mVideoListInfo.getVideosList(), mVideoListInfo);
+                    mListFragment.bindVideoList(mVideoListInfo);
                 if(mFolderListFragment != null)
-                    mFolderListFragment.bindVideoList(mVideoListInfo.getFolderListHashMap(), mVideoListInfo);
+                    mFolderListFragment.bindVideoList(mVideoListInfo);
                 if(mSavedListFragment != null)
-                    mSavedListFragment.bindVideoList(mVideoListInfo.getSavedVideoList(), mVideoListInfo);
+                    mListFragment.bindVideoList(mVideoListInfo);
             }
         };
         mVideoListingHolderMvpImpl.SetSearchListener(searchVideoListener);
@@ -235,36 +235,35 @@ public class VideoListingActivity extends AppCompatActivity
 
     public void fetchVideoList() {
         if(mListFragment != null && mVideoListInfo != null) {
-            mListFragment.bindVideoList(mVideoListInfo.getVideosList(), mVideoListInfo);
+            mListFragment.bindVideoList(mVideoListInfo);
         }
     }
 
     public void fetchSavedList() {
         if(mSavedListFragment != null && mVideoListInfo != null)
-            mSavedListFragment.bindVideoList(mVideoListInfo.getSavedVideoList(), mVideoListInfo);
+            mSavedListFragment.bindVideoList(mVideoListInfo);
     }
 
     public void fetchFolderList()
     {
         if(mFolderListFragment != null && mVideoListInfo != null)
-            mFolderListFragment.bindVideoList(mVideoListInfo.getFolderListHashMap(), mVideoListInfo);
+            mFolderListFragment.bindVideoList(mVideoListInfo);
     }
 
-    public void registerListener(ListFragment listFragment)
+    public void registerListener(ListFragmentImpl listFragment)
     {
         mListFragment = listFragment;
     }
 
-    public void registerListener(SavedListFragment savedListFragment)
-    {
-        mSavedListFragment = savedListFragment;
-    }
-
-    public void registerListener(FolderListFragment folderListFragment)
+    public void registerListener(FolderListFragmentImpl folderListFragment)
     {
         mFolderListFragment = folderListFragment;
     }
 
+    public void registerListener(SavedListFragmentImpl savedListFragment)
+    {
+        mSavedListFragment = savedListFragment;
+    }
 
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {

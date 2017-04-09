@@ -16,6 +16,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity;
+import com.mn2square.videolistingmvp.swipetabfragments.VideoListFragmentInterface.VideoListFragmentInterface;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
 import com.mn2square.videolistingmvp.swipetabfragments.ListFragement.views.ListFragmentViewImpl;
 import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by nitinagarwal on 3/12/17.
  */
 
-public class ListFragmentImpl extends Fragment implements ListFragment{
+public class ListFragmentImpl extends Fragment implements VideoListFragmentInterface {
 
     ListFragmentViewImpl mListFragmentViewImpl;
     VideoListInfo mVideoListInfo;
@@ -82,9 +83,9 @@ public class ListFragmentImpl extends Fragment implements ListFragment{
 
 
     @Override
-    public void bindVideoList(List<String> videoList, VideoListInfo videoListInfo) {
+    public void bindVideoList(VideoListInfo videoListInfo) {
         mVideoListInfo = videoListInfo;
-        mListFragmentViewImpl.bindVideoList(videoList, videoListInfo);
+        mListFragmentViewImpl.bindVideoList(videoListInfo.getVideosList(), videoListInfo);
     }
 
     @Override
