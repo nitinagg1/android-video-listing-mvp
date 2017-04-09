@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -36,7 +35,7 @@ import com.nineoldandroids.view.ViewPropertyAnimator;
  * Created by nitinagarwal on 3/5/17.
  */
 
-public class VideoListingHolderMvpImpl implements ViewMvp, ViewMvpSearch, SearchView.OnClickListener,
+public class VideoListingHolderMvpImpl implements ViewMvpVideoList, ViewMvpSearch, SearchView.OnClickListener,
         SearchView.OnCloseListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener,
         TabLayout.OnTabSelectedListener
 {

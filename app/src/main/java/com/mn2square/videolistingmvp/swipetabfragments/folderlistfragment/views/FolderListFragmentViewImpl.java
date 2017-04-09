@@ -1,6 +1,7 @@
 package com.mn2square.videolistingmvp.swipetabfragments.folderlistfragment.views;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +35,6 @@ public class FolderListFragmentViewImpl implements FolderListFragmentView {
     }
 
     @Override
-    public View getView() {
-        return mFragmentFolderListView;
-    }
-
-    @Override
     public ObservableExpandableListView getExpandableListView() {
         return mExpandableListView;
     }
@@ -49,5 +45,15 @@ public class FolderListFragmentViewImpl implements FolderListFragmentView {
 
         mFolderListAdapter.bindVideoList(folderListHashMap, folderNames, videoListInfo);
         mFolderListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public View getRootView() {
+        return mFragmentFolderListView;
+    }
+
+    @Override
+    public Bundle getViewState() {
+        return null;
     }
 }

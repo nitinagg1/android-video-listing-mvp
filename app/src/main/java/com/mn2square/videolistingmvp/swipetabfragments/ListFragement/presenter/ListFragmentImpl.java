@@ -38,7 +38,7 @@ public class ListFragmentImpl extends Fragment implements ListFragment{
         mListFragmentViewImpl = new ListFragmentViewImpl(getActivity(), container, inflater);
 
         mListFragmentViewImpl.getListView().addHeaderView(inflater.inflate(R.layout.padding, mListFragmentViewImpl.getListView(), false));
-        return mListFragmentViewImpl.getView();
+        return mListFragmentViewImpl.getRootView();
 
     }
 

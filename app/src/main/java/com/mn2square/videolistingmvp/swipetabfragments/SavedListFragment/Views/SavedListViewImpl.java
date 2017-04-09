@@ -1,6 +1,7 @@
 package com.mn2square.videolistingmvp.swipetabfragments.SavedListFragment.Views;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +32,6 @@ public class SavedListViewImpl implements SavedListView{
     }
 
     @Override
-    public View getView() {
-        return mSavedVideoListView;
-    }
-
-    @Override
     public void bindSavedVideoList(List<String> savedVideosList, VideoListInfo videoListInfo) {
 
         mSavedListAdapter.bindVideoList(savedVideosList, videoListInfo);
@@ -45,5 +41,15 @@ public class SavedListViewImpl implements SavedListView{
     @Override
     public ObservableListView getSavedListView() {
         return mSavedListView;
+    }
+
+    @Override
+    public View getRootView() {
+        return mSavedVideoListView;
+    }
+
+    @Override
+    public Bundle getViewState() {
+        return null;
     }
 }

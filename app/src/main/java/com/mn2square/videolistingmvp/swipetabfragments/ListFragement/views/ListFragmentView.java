@@ -4,13 +4,13 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
+import com.mn2square.videolistingmvp.viewmvp.ViewMvp;
 
 /**
  * Created by nitinagarwal on 3/12/17.
  */
 
-public interface ListFragmentView {
+public interface ListFragmentView extends ViewMvp {
 
-    View getView();
     ObservableListView getListView();
 }

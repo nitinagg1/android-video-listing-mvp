@@ -42,7 +42,7 @@ public class FolderListFragmentImpl extends Fragment implements FolderListFragme
         super.onCreateView(inflater, container, savedInstanceState);
         mFolderListFragmentView = new FolderListFragmentViewImpl(getActivity(), container, inflater);
         mFolderListFragmentView.getExpandableListView().addHeaderView(inflater.inflate(R.layout.padding, mFolderListFragmentView.getExpandableListView(), false));
-        return mFolderListFragmentView.getView();
+        return mFolderListFragmentView.getRootView();
     }
 
     @Override

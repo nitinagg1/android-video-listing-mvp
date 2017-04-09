@@ -1,6 +1,7 @@
 package com.mn2square.videolistingmvp.swipetabfragments.ListFragement.views;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +30,6 @@ public class ListFragmentViewImpl implements ListFragmentView {
         mListView.setAdapter(mVideoListAdapter);
     }
 
-    @Override
-    public View getView() {
-        return mFragemntVideoListView;
-    }
 
     @Override
     public ObservableListView getListView() {
@@ -43,5 +40,15 @@ public class ListFragmentViewImpl implements ListFragmentView {
     {
         mVideoListAdapter.bindVideoList(videos, videoListInfo);
         mVideoListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public View getRootView() {
+        return mFragemntVideoListView;
+    }
+
+    @Override
+    public Bundle getViewState() {
+        return null;
     }
 }

@@ -38,7 +38,7 @@ public class SavedListFragmentImpl extends Fragment implements SavedListFragment
         mSavedListViewImpl = new SavedListViewImpl(getActivity(), container, inflater);
         mSavedListViewImpl.getSavedListView().addHeaderView(inflater.inflate(R.layout.padding, mSavedListViewImpl.getSavedListView(), false));
 
-        return mSavedListViewImpl.getView();
+        return mSavedListViewImpl.getRootView();
 
     }
 
