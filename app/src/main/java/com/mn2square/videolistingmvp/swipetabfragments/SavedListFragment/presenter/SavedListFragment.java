@@ -1,6 +1,6 @@
 package com.mn2square.videolistingmvp.swipetabfragments.SavedListFragment.presenter;
 
-import com.mn2square.videolistingmvp.activity.model.VideoListInfo;
+import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
 
 import java.util.List;
 

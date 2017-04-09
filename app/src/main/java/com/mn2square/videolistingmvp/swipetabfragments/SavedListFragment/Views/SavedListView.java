@@ -1,10 +1,9 @@
 package com.mn2square.videolistingmvp.swipetabfragments.SavedListFragment.Views;
 
 import android.view.View;
-import android.widget.ListView;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
-import com.mn2square.videolistingmvp.activity.model.VideoListInfo;
+import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
 
 import java.util.List;
 

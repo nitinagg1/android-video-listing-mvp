@@ -18,7 +18,7 @@ import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
 import com.mn2square.videolistingmvp.swipetabfragments.ListFragement.views.ListFragmentViewImpl;
-import com.mn2square.videolistingmvp.activity.model.VideoListInfo;
+import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
 
 import java.util.List;
 
@@ -78,8 +78,6 @@ public class ListFragmentImpl extends Fragment implements ListFragment{
                 ((VideoListingActivity)getActivity()).onUpOrCancelMotionEvent(scrollState);
             }
         });
-
-
     }
 
 

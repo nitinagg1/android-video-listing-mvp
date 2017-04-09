@@ -6,12 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.utils.Converters;
-import com.mn2square.videolistingmvp.activity.model.VideoListInfo;
+import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
 import com.mn2square.videolistingmvp.utils.thumbnailutils.CustomImageView;
 import com.mn2square.videolistingmvp.utils.thumbnailutils.ThumbnailCreateor;
 import com.mn2square.videolistingmvp.utils.thumbnailutils.BitmapCache;

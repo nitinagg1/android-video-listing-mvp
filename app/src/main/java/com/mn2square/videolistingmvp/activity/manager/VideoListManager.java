@@ -1,4 +1,6 @@
-package com.mn2square.videolistingmvp.activity.model;
+package com.mn2square.videolistingmvp.activity.manager;
+
+import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
 
 /**
  * Created by nitinagarwal on 3/7/17.

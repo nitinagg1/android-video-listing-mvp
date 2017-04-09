@@ -17,7 +17,7 @@ import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
-import com.mn2square.videolistingmvp.activity.model.VideoListInfo;
+import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
 import com.mn2square.videolistingmvp.swipetabfragments.folderlistfragment.views.FolderListFragmentViewImpl;
 
 import java.util.ArrayList;
