@@ -36,7 +36,7 @@ import com.nineoldandroids.view.ViewPropertyAnimator;
  * Created by nitinagarwal on 3/5/17.
  */
 
-public class VideoListingHolderMvpImpl implements ViewMvpVideoList, ViewMvpSearch, SearchView.OnClickListener,
+public class VideoListingViewImpl implements ViewMvpVideoList, ViewMvpSearch, SearchView.OnClickListener,
         SearchView.OnCloseListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener,
         TabLayout.OnTabSelectedListener, ObservableScrollViewCallbacks
 {
@@ -57,7 +57,7 @@ public class VideoListingHolderMvpImpl implements ViewMvpVideoList, ViewMvpSearc
 
     private static String TAG = "videolistmvp";
 
-    public VideoListingHolderMvpImpl(Context context, ViewGroup container)
+    public VideoListingViewImpl(Context context, ViewGroup container)
     {
 
         mContext = context;

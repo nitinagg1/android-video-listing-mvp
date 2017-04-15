@@ -13,18 +13,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.swipetabfragments.ListFragement.presenter.ListFragmentImpl;
 import com.mn2square.videolistingmvp.swipetabfragments.SavedListFragment.presenter.SavedListFragmentImpl;
 import com.mn2square.videolistingmvp.swipetabfragments.folderlistfragment.presenter.FolderListFragmentImpl;
 import com.mn2square.videolistingmvp.utils.FolderListGenerator;
 import com.mn2square.videolistingmvp.utils.VideoSearch;
-import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
-import com.mn2square.videolistingmvp.activity.manager.VideoListManager;
-import com.mn2square.videolistingmvp.activity.manager.VideoListManagerImpl;
-import com.mn2square.videolistingmvp.activity.views.VideoListingHolderMvpImpl;
+import com.mn2square.videolistingmvp.activity.presenter.manager.pojo.VideoListInfo;
+import com.mn2square.videolistingmvp.activity.presenter.manager.VideoListManager;
+import com.mn2square.videolistingmvp.activity.presenter.manager.VideoListManagerImpl;
+import com.mn2square.videolistingmvp.activity.views.VideoListingViewImpl;
 import com.mn2square.videolistingmvp.activity.views.ViewMvpSearch;
 import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
 
@@ -46,7 +44,7 @@ public class VideoListingActivity extends AppCompatActivity
     public static final int DELETE_VIDEO = 1;
     public static final int RENAME_VIDEO = 2;
 
-    VideoListingHolderMvpImpl mVideoListingHolderMvpImpl;
+    VideoListingViewImpl mVideoListingViewImpl;
     VideoListManagerImpl mVideoListManagerImpl;
     ViewPager mViewPager;
     ListFragmentImpl mListFragment;
@@ -60,11 +58,11 @@ public class VideoListingActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mVideoListingHolderMvpImpl = new VideoListingHolderMvpImpl(this, null);
+        mVideoListingViewImpl = new VideoListingViewImpl(this, null);
 
-        setContentView(mVideoListingHolderMvpImpl.getRootView());
+        setContentView(mVideoListingViewImpl.getRootView());
 
-        mViewPager = mVideoListingHolderMvpImpl.getViewPager();
+        mViewPager = mVideoListingViewImpl.getViewPager();
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         mSortingType = settings.getInt(SORT_TYPE_PREFERENCE_KEY, 3);
@@ -92,7 +90,7 @@ public class VideoListingActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        mVideoListingHolderMvpImpl.AddSearchBar(menu.findItem(R.id.action_search));
+        mVideoListingViewImpl.AddSearchBar(menu.findItem(R.id.action_search));
 
         ViewMvpSearch.SearchVideo searchVideoListener = new ViewMvpSearch.SearchVideo() {
             @Override
@@ -128,7 +126,7 @@ public class VideoListingActivity extends AppCompatActivity
                     mListFragment.bindVideoList(mVideoListInfo);
             }
         };
-        mVideoListingHolderMvpImpl.SetSearchListener(searchVideoListener);
+        mVideoListingViewImpl.SetSearchListener(searchVideoListener);
 
         setSortingOptionChecked(menu);
         return true;
@@ -277,9 +275,9 @@ public class VideoListingActivity extends AppCompatActivity
         Toast.makeText(this, videoPath + "clicked", Toast.LENGTH_SHORT).show();
     }
 
-    public VideoListingHolderMvpImpl getVideoListActivityView()
+    public VideoListingViewImpl getVideoListActivityView()
     {
-        return mVideoListingHolderMvpImpl;
+        return mVideoListingViewImpl;
     }
 
     @Override

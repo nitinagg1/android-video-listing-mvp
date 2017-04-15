@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mn2square.videolistingmvp.R;
-import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
+import com.mn2square.videolistingmvp.activity.presenter.manager.pojo.VideoListInfo;
 import com.mn2square.videolistingmvp.swipetabfragments.adapters.FolderListAdapter;
 import com.mn2square.videolistingmvp.swipetabfragments.folderlistfragment.ObservableFolderList.ObservableExpandableListView;
 

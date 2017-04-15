@@ -1,6 +1,5 @@
 package com.mn2square.videolistingmvp.utils.longpressmenuoptions;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,7 +7,6 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mn2square.videolistingmvp.R;
-import com.mn2square.videolistingmvp.activity.manager.VideoListManager;
-import com.mn2square.videolistingmvp.activity.manager.VideoListUpdateManager;
+import com.mn2square.videolistingmvp.activity.presenter.manager.VideoListUpdateManager;
 
 import java.io.File;
 

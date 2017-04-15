@@ -8,7 +8,6 @@ import android.util.Log;
 import android.util.LruCache;
 
 import com.mn2square.videolistingmvp.VideoListingMvpApplication;
-import com.mn2square.videolistingmvp.activity.views.VideoListingHolderMvpImpl;
 
 import java.io.File;
 import java.io.FileDescriptor;

@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -18,15 +17,8 @@ import com.mn2square.videolistingmvp.R;
 import com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity;
 import com.mn2square.videolistingmvp.activity.presenter.VideoUserInteraction;
 import com.mn2square.videolistingmvp.swipetabfragments.VideoListFragmentInterface.VideoListFragmentInterface;
-import com.mn2square.videolistingmvp.utils.longpressmenuoptions.LongPressOptions;
 import com.mn2square.videolistingmvp.swipetabfragments.ListFragement.views.ListFragmentViewImpl;
-import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
-
-import java.util.List;
-
-import static com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity.DELETE_VIDEO;
-import static com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity.RENAME_VIDEO;
-import static com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity.SHARE_VIDEO;
+import com.mn2square.videolistingmvp.activity.presenter.manager.pojo.VideoListInfo;
 
 /**
  * Created by nitinagarwal on 3/12/17.

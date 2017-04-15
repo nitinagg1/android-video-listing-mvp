@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.mn2square.videolistingmvp.R;
-import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
+import com.mn2square.videolistingmvp.activity.presenter.manager.pojo.VideoListInfo;
 import com.mn2square.videolistingmvp.utils.Converters;
 import com.mn2square.videolistingmvp.utils.thumbnailutils.CustomImageView;
 import com.mn2square.videolistingmvp.utils.thumbnailutils.ThumbnailCreateor;

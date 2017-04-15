@@ -1,4 +1,4 @@
-package com.mn2square.videolistingmvp.activity.manager;
+package com.mn2square.videolistingmvp.activity.presenter.manager;
 
 /**
  * Created by nitinagarwal on 4/10/17.

@@ -1,4 +1,4 @@
-package com.mn2square.videolistingmvp.activity.manager.pojo;
+package com.mn2square.videolistingmvp.activity.presenter.manager.pojo;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.mn2square.videolistingmvp.activity.manager;
+package com.mn2square.videolistingmvp.activity.presenter.manager;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -9,9 +9,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
-import com.mn2square.videolistingmvp.activity.manager.pojo.VideoListInfo;
+import com.mn2square.videolistingmvp.activity.presenter.manager.pojo.VideoListInfo;
 import com.mn2square.videolistingmvp.utils.FolderListGenerator;
 
 import static com.mn2square.videolistingmvp.activity.presenter.VideoListingActivity.DATE_ASC;
