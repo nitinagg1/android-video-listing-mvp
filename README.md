@@ -28,6 +28,9 @@ The view is the layout view of the video listing.
 
 any of three component are easy replacable, also any change in one component of the application does not impact any other component in the application due to clean separation of roles.
 
+# For Detailed Explaination Check
+<a href="https://medium.com/@nitinagg.nitkkr/android-mvp-for-beginners-25889c500443">android MVP explained for beginners</a>
+
 
 ## Visit Website
 <a href="https://androidvideoplayer.com/">Video Slow Motion Zoom Player</a>
