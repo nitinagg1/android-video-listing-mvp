@@ -39,4 +39,5 @@ Player with Best Zoom And Pan Functionality.
 ## PlayStore link
 <a href="https://play.google.com/store/apps/details?id=com.mn2square.slowmotionplayer">Best Android Video Player with Zoom And Pan</a>
 
-
+## Important Note
+Please Provide Read Storage Permission to the Application before Running
